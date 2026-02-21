@@ -171,7 +171,7 @@
             const schedule = tripSchedule[num] || [];
             document.getElementById('dayContentArea').innerHTML = schedule.map(item => {
                 if(item.type === 'transit') return `<div class="transit-line"><span><i class="ph-duotone ph-train"></i> ${item.line}</span> <button class="transit-info-btn" onclick="openDrawer('${item.infoId}')"><i class="ph-bold ph-info"></i></button></div>`;
-                return `<div class="card" onclick="openDrawer('${item.id}')"><div class="card-icon"><i class="ph-duotone ${item.icon}"></i></div><div class="card-body">${item.time ? `<div class="card-time">${item.time}</div>` : ''}<div class="card-title">${item.title}</div></div><button class="nav-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(item.title), '_blank')"><i class="ph-duotone ph-map-pin"></i></button></div>`;
+                return `<div class="card" onclick="openDrawer('${item.id}')"><div class="card-icon"><i class="ph-duotone ${item.icon}"></i></div><div class="card-body">${item.time ? `<div class="card-time">${item.time}</div>` : ''}<div class="card-title">${item.title}</div></div><button class="nav-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=${item.title}')"><i class="ph-duotone ph-map-pin"></i></button></div>`;
             }).join('');
         }
 
