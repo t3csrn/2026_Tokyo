@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="CHEN日本行">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#F9F5F0">
+    
+    <link rel="apple-touch-icon" href="icon.png">
+    <link rel="icon" type="image/png" href="icon.png">
+
+    <title>2026 CHEN’s Family Trip</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { 
+            --bg-page: #F9F5F0; --bg-card: #FFFFFF; --text-main: #4A3F35; 
+            --text-sub: #A6907D; --accent: #B07D4F; --accent-light: #F2E9DE; 
+            --safe-area-top: env(safe-area-inset-top);
+            --safe-area-bottom: env(safe-area-inset-bottom);
+        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Noto Sans JP', sans-serif; background-color: var(--bg-page); color: var(--text-main); margin: 0; padding-top: var(--safe-area-top); }
+        
+        header { padding: 25px 20px 10px 20px; text-align: center; background-color: var(--bg-page); }
+        header h1 { font-size: 1.2rem; font-weight: 700; letter-spacing: 0.1em; margin: 0; color: var(--text-main); text-transform: uppercase; }
+
+        .calendar-nav { background: #FAF7F2; display: flex; overflow-x: auto; padding: 15px 10px; gap: 12px; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #EFE9E1; scrollbar-width: none; }
+        .date-item { flex: 0 0 55px; text-align: center; padding: 10px 0; border-radius: 12px; color: var(--text-sub); cursor: pointer; transition: 0.3s; }
+        .date-item.active { background: var(--accent); color: #FFF; transform: rotate(-1deg); box-shadow: 0 4px 10px rgba(176, 125, 79, 0.2); }
+        .date-item b { font-size: 1.1rem; display: block; }
+
+        main { padding: 15px 15px 120px 15px; max-width: 600px; margin: 0 auto; }
+        .city-hero { height: 180px; border-radius: 28px; margin-bottom: 15px; display: flex; flex-direction: column; justify-content: flex-end; padding: 20px; color: white; background-size: cover; background-position: center; position: relative; overflow: hidden; }
+        .city-hero::after { content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(rgba(0,0,0,0) 30%, rgba(74, 63, 53, 0.6)); }
+
+        .weather-bar { display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; scrollbar-width: none; }
+        .weather-tag { background: rgba(176, 125, 79, 0.08); border: 1px solid rgba(176, 125, 79, 0.15); padding: 8px 12px; border-radius: 14px; display: flex; align-items: center; gap: 6px; font-size: 0.75rem; color: var(--accent); white-space: nowrap; }
+
+        .card { background: var(--bg-card); border-radius: 24px; padding: 20px; border: 1px solid rgba(166, 144, 125, 0.1); display: flex; gap: 15px; cursor: pointer; align-items: center; position: relative; box-shadow: 0 4px 12px rgba(166, 144, 125, 0.08); margin-bottom: 12px; }
+        .card-icon { flex: 0 0 45px; height: 45px; background: var(--bg-page); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .card-icon i { font-size: 1.6rem; color: var(--accent); }
+        .card-body { flex: 1; }
+        .card-title { font-size: 1rem; font-weight: 500; padding-right: 45px; }
+
+        .transit-line { margin: -5px 0 10px 42px; padding: 10px 20px; border-left: 2px dashed var(--accent-light); display: flex; align-items: center; justify-content: space-between; font-size: 0.85rem; color: var(--accent); font-weight: 600; }
+        .transit-info-btn { width: 30px; height: 30px; border-radius: 50%; background: var(--accent-light); border: none; color: var(--accent); display: flex; align-items: center; justify-content: center; cursor: pointer; }
+
+        .nav-btn { position: absolute; right: 18px; width: 45px; height: 45px; background: transparent; color: var(--text-sub); display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; opacity: 0.8; }
+        .nav-btn i { font-size: 2rem; }
+
+        .map-fab { position: fixed; bottom: calc(30px + var(--safe-area-bottom)); right: 25px; width: 60px; height: 60px; background: var(--accent); color: #FFF; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 8px 25px rgba(176, 125, 79, 0.4); z-index: 1500; text-decoration: none; }
+        .map-fab i { font-size: 1.8rem; }
+        .map-fab span { font-size: 0.6rem; font-weight: 700; margin-top: -2px; }
+
+        .drawer-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(74, 63, 53, 0.4); z-index: 2000; visibility: hidden; opacity: 0; transition: 0.3s; backdrop-filter: blur(4px); }
+        .drawer { position: fixed; bottom: -100%; left: 0; width: 100%; background: #FFF; border-radius: 32px 32px 0 0; padding: 35px 25px calc(30px + var(--safe-area-bottom)); z-index: 2001; transition: 0.4s; max-height: 85vh; overflow-y: auto; }
+        .drawer.active { bottom: 0; }
+        .drawer-overlay.active { visibility: visible; opacity: 1; }
+        
+        .info-tag { display: inline-block; padding: 4px 12px; border-radius: 8px; font-size: 0.75rem; background: var(--accent-light); color: var(--accent); margin-bottom: 12px; font-weight: 700; }
+        .facility-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 10px 0; }
+        .facility-item { background: var(--bg-page); padding: 10px; border-radius: 12px; text-align: center; font-size: 0.7rem; }
+        .facility-item i { display: block; font-size: 1.2rem; margin-bottom: 4px; color: var(--accent); }
+
+        .spot-guide-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; }
+        .guide-box { background: var(--bg-page); padding: 15px; border-radius: 18px; border: 1px solid rgba(176, 125, 79, 0.1); }
+        .guide-box-title { font-size: 0.8rem; font-weight: 700; color: var(--accent); margin-bottom: 8px; display: flex; align-items: center; gap: 5px; }
+        
+        .btn-close { display: block; width: 100%; padding: 16px; background: var(--accent); color: #fff; border-radius: 16px; border: none; font-weight: 700; margin-top: 25px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <header><h1>2026 CHEN’s Family Trip</h1></header>
+
+    <nav class="calendar-nav" id="dateNav">
+        <div class="date-item active" onclick="switchDay(1)"><span>SAT</span><b>11</b></div>
+        <div class="date-item" onclick="switchDay(2)"><span>SUN</span><b>12</b></div>
+        <div class="date-item" onclick="switchDay(3)"><span>MON</span><b>13</b></div>
+        <div class="date-item" onclick="switchDay(4)"><span>TUE</span><b>14</b></div>
+        <div class="date-item" onclick="switchDay(5)"><span>WED</span><b>15</b></div>
+        <div class="date-item" onclick="switchDay(6)"><span>THU</span><b>16</b></div>
+        <div class="date-item" onclick="switchDay(7)"><span>FRI</span><b>17</b></div>
+        <div class="date-item" onclick="switchDay(8)"><span>SAT</span><b>18</b></div>
+    </nav>
+
+    <a href="https://www.tokyometro.jp/station/pdf/202305/202305_number_tcn.pdf" target="_blank" class="map-fab">
+        <i class="ph-bold ph-train"></i><span>地鐵圖</span>
+    </a>
+
+    <main>
+        <div class="city-hero" id="heroImage"><div class="city-hero-content"><span id="heroDate"></span><h2 id="heroTitle"></h2></div></div>
+        <div class="weather-bar" id="weatherBarArea"></div>
+        <div id="dayContentArea"></div>
+    </main>
+
+    <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+    <div class="drawer" id="infoDrawer"><div id="drawerBody"></div></div>
+
+    <script>
+        const weatherData = {
+            1: { temp: "14°-21°C", rain: "10%", aqi: "32", icon: "ph-sun" },
+            2: { temp: "12°-19°C", rain: "20%", aqi: "45", icon: "ph-cloud-sun" },
+            3: { temp: "13°-22°C", rain: "0%", aqi: "28", icon: "ph-sun" },
+            4: { temp: "15°-24°C", rain: "40%", aqi: "56", icon: "ph-cloud-rain" },
+            5: { temp: "8°-16°C", rain: "5%", aqi: "15", icon: "ph-mountains" },
+            6: { temp: "7°-15°C", rain: "0%", aqi: "12", icon: "ph-sun" },
+            7: { temp: "16°-23°C", rain: "10%", aqi: "42", icon: "ph-sun" },
+            8: { temp: "14°-20°C", rain: "15%", aqi: "38", icon: "ph-cloud-sun" }
+        };
+
+        const tripDatabase = {
+            hotel_tokyo: { title: "品川王子飯店", type: "HOTEL", items: [{ label: "預定代號", val: "43778SF320681" }, { label: "特色", val: "鄰近品川樞紐，附設大型水族館。" }], facilities: [{icon:"ph-wifi-high", text:"WiFi"}, {icon:"ph-fish", text:"水族館"}, {icon:"ph-coffee", text:"咖啡"}, {icon:"ph-shopping-cart", text:"超商"}, {icon:"ph-thermometer-hot", text:"空調"}, {icon:"ph-martini", text:"酒吧"}] },
+            hotel_matsumoto: { title: "松本 SUPER HOTEL", type: "HOTEL", items: [{ label: "預定代號", val: "5643752627" }, { label: "特色", val: "天然溫泉、健康早餐與自選枕頭。" }], facilities: [{icon:"ph-waves", text:"溫泉"}, {icon:"ph-bowl-food", text:"早餐"}, {icon:"ph-pillow", text:"枕頭"}, {icon:"ph-wifi-high", text:"WiFi"}, {icon:"ph-selection", text:"女性禮"}, {icon:"ph-washing-machine", text:"洗衣"}] },
+            hotel_makuhari: { title: "海濱幕張飯店", type: "HOTEL", items: [{ label: "預定代號", val: "1128145797437805" }, { label: "特色", val: "鄰近 Outlet，直達成田機場巴士站。" }], facilities: [{icon:"ph-bus", text:"接駁"}, {icon:"ph-shopping-bag", text:"商圈"}, {icon:"ph-wifi-high", text:"WiFi"}, {icon:"ph-bed", text:"寬敞"}, {icon:"ph-bathtub", text:"浴缸"}, {icon:"ph-clock-afternoon", text:"24H"}] },
+            meiji: { title: "明治神宮", type: "SPOT", items: [{ label: "攻略", val: "⛩️ 城市森林，巨大的鳥居。" }], mustEat: "杜之森咖哩", mustBuy: "御守、御朱印帳" },
+            shibuya: { title: "新宿 / 涉谷", type: "SPOT", items: [{ label: "攻略", val: "SHIBUYA SKY 看夕陽必去。" }], mustEat: "炸牛排 もと村", mustBuy: "任天堂週邊" },
+            asakusa: { title: "淺草寺", type: "SPOT", items: [{ label: "攻略", val: "🏮 感受東京下町經典文化。" }], mustEat: "龜十銅鑼燒", mustBuy: "雷門小燈籠" },
+            jyujyu: { title: "敘敘苑 燒肉", type: "FOOD", items: [{ label: "地點", val: "晴空塔店 30F" }] },
+            kokyo: { title: "皇居 / 東京車站", type: "SPOT", items: [{ label: "攻略", val: "百年紅磚車站巡禮。" }], mustEat: "六厘舍沾麵", mustBuy: "東京香蕉" },
+            ginza: { title: "銀座購物", type: "SPOT", items: [{ label: "攻略", val: "三越百貨與步行者天國。" }], mustEat: "歐姆蛋包飯", mustBuy: "伊東屋文具" },
+            castle: { title: "松本城", type: "SPOT", items: [{ label: "攻略", val: "國寶黑色天守。" }], mustEat: "信州蕎麥麵", mustBuy: "松本手鞠" },
+            outlet: { title: "三井 Outlet", type: "SHOPPING", items: [{ label: "提示", val: "海濱幕張最後大採買。" }] },
+            ci104: { title: "桃園機場", type: "TRANSIT", items: [{ label: "航班", val: "CI104 12:15" }] },
+            ci105: { title: "成田機場", type: "TRANSIT", items: [{ label: "航班", val: "CI105 17:55" }] },
+            t_nrt: { title: "Access 特急詳解", type: "TRANSIT_INFO", items: [{ label: "班次", val: "約 40 分鐘一班，直通品川。" }, { label: "進出站", val: "成田機場地下月台 ➔ 品川站高輪口。" }, { label: "提醒", val: "刷 IC 卡即可。" }] },
+            t_jr: { title: "JR 山手線詳解", type: "TRANSIT_INFO", items: [{ label: "班次", val: "隨時有車 (2-5 分鐘一班)。" }] },
+            t_azusa: { title: "特急梓號詳解", type: "TRANSIT_INFO", items: [{ label: "班次", val: "約 1 小時一班，新宿 ➔ 松本。" }, { label: "提醒", val: "全車指定席，需先劃位。" }] },
+            t_bus: { title: "機場巴士詳解", type: "TRANSIT_INFO", items: [{ label: "提示", val: "成田 T2 下車即是航站。" }] }
+        };
+
+        const tripSchedule = {
+            1: [ { id: 'ci104', time: '12:15', title: '桃園機場', icon: 'ph-airplane-tilt' }, { type: 'transit', line: 'Access 特急 ➔ 品川', infoId: 't_nrt' }, { id: 'hotel_tokyo', time: '20:30', title: '品川王子飯店', icon: 'ph-bed' } ],
+            2: [ { id: 'meiji', title: '明治神宮', icon: 'ph-hands-praying' }, { type: 'transit', line: 'JR 山手線', infoId: 't_jr' }, { id: 'shibuya', title: '新宿 / 涉谷', icon: 'ph-shopping-bag' }, { id: 'hotel_tokyo', title: '品川王子飯店', icon: 'ph-bed' } ],
+            3: [ { id: 'asakusa', title: '淺草寺參拜', icon: 'ph-mosque' }, { id: 'jyujyu', time: '13:00', title: '敘敘苑 燒肉', icon: 'ph-bowl-food' }, { id: 'hotel_tokyo', title: '品川王子飯店', icon: 'ph-bed' } ],
+            4: [ { id: 'kokyo', title: '皇居 / 東京車站', icon: 'ph-buildings' }, { id: 'ginza', title: '銀座購物', icon: 'ph-shopping-bag' }, { id: 'hotel_tokyo', title: '品川王子飯店', icon: 'ph-bed' } ],
+            5: [ { type: 'transit', line: '特急梓號 (Azusa) ➔ 松本', infoId: 't_azusa' }, { id: 'hotel_matsumoto', title: '松本 SUPER HOTEL', icon: 'ph-bed' } ],
+            6: [ { id: 'castle', title: '松本城巡禮', icon: 'ph-castle-turret' }, { id: 'hotel_matsumoto', title: '松本 SUPER HOTEL', icon: 'ph-bed' } ],
+            7: [ { type: 'transit', line: '返回東京 / 幕張', infoId: 't_azusa' }, { id: 'outlet', title: '三井 Outlet 幕張', icon: 'ph-shopping-bag' }, { id: 'hotel_makuhari', title: '海濱幕張飯店', icon: 'ph-bed' } ],
+            8: [ { type: 'transit', line: '機場高速巴士', infoId: 't_bus' }, { id: 'ci105', time: '17:55', title: '成田機場 T2', icon: 'ph-airplane-takeoff' } ]
+        };
+
+        const dayBaseInfo = {
+            1: { title: "抵達・品川", date: "04/11 SAT", img: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=1000" },
+            2: { title: "漫步・東京", date: "04/12 SUN", img: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=1000" },
+            3: { title: "下町・風情", date: "04/13 MON", img: "https://images.unsplash.com/photo-1583444429339-16741200e7bc?w=1000" },
+            4: { title: "皇居・銀座", date: "04/14 TUE", img: "https://images.unsplash.com/photo-1554797589-7241bb691973?w=1000" },
+            5: { title: "前往・松本", date: "04/15 WED", img: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1000" },
+            6: { title: "國寶・巡禮", date: "04/16 THU", img: "https://images.unsplash.com/photo-1528164344705-4754268799af?w=1000" },
+            7: { title: "幕張・購物", date: "04/17 FRI", img: "https://images.unsplash.com/photo-1490761668535-354632947d45?w=1000" },
+            8: { title: "賦歸・回台", date: "04/18 SAT", img: "https://images.unsplash.com/photo-1524413139048-3fd0507be7e4?w=1000" }
+        };
+
+        function switchDay(num) {
+            document.querySelectorAll('.date-item').forEach((it, idx) => it.classList.toggle('active', idx === num - 1));
+            const info = dayBaseInfo[num];
+            document.getElementById('heroImage').style.backgroundImage = `url('${info.img}')`;
+            document.getElementById('heroTitle').innerText = info.title;
+            document.getElementById('heroDate').innerText = info.date;
+            const w = weatherData[num];
+            document.getElementById('weatherBarArea').innerHTML = `<div class="weather-tag"><i class="ph-duotone ${w.icon}"></i> ${w.temp}</div><div class="weather-tag"><i class="ph-duotone ph-drop"></i> ${w.rain}</div><div class="weather-tag"><i class="ph-duotone ph-wind"></i> AQI ${w.aqi}</div>`;
+            const schedule = tripSchedule[num] || [];
+            document.getElementById('dayContentArea').innerHTML = schedule.map(item => {
+                if(item.type === 'transit') return `<div class="transit-line"><span><i class="ph-duotone ph-train"></i> ${item.line}</span> <button class="transit-info-btn" onclick="openDrawer('${item.infoId}')"><i class="ph-bold ph-info"></i></button></div>`;
+                return `<div class="card" onclick="openDrawer('${item.id}')"><div class="card-icon"><i class="ph-duotone ${item.icon}"></i></div><div class="card-body">${item.time ? `<div class="card-time">${item.time}</div>` : ''}<div class="card-title">${item.title}</div></div><button class="nav-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(item.title), '_blank')"><i class="ph-duotone ph-map-pin"></i></button></div>`;
+            }).join('');
+        }
+
+        function openDrawer(id) {
+            const data = tripDatabase[id];
+            if (!data) return;
+            let extra = '';
+            if (data.facilities) extra = `<div class="info-label">飯店設施</div><div class="facility-grid">${data.facilities.map(f=>`<div class="facility-item"><i class="ph-duotone ${f.icon}"></i>${f.text}</div>`).join('')}</div>`;
+            if (data.type === 'SPOT') extra = `<div class="spot-guide-grid"><div class="guide-box"><div class="guide-box-title"><i class="ph-bold ph-cooking-pot"></i>必吃</div><div class="guide-box-content">${data.mustEat}</div></div><div class="guide-box"><div class="guide-box-title"><i class="ph-bold ph-bag"></i>必買</div><div class="guide-box-content">${data.mustBuy}</div></div></div>`;
+            document.getElementById('drawerBody').innerHTML = `<span class="info-tag">${data.type.replace('_',' ')}</span><div style="font-size:1.4rem; font-weight:700; margin-bottom:15px;">${data.title}</div>${data.items.map(i => `<div class="info-item"><span class="info-label">${i.label}</span><span class="info-val">${i.val}</span></div>`).join('')}${extra}<button class="btn-close" onclick="closeDrawer()">關閉資訊</button>`;
+            document.getElementById('drawerOverlay').classList.add('active');
+            document.getElementById('infoDrawer').classList.add('active');
+        }
+
+        function closeDrawer() { document.getElementById('drawerOverlay').classList.remove('active'); document.getElementById('infoDrawer').classList.remove('active'); }
+        switchDay(1);
+    </script>
+</body>
+</html>
