@@ -58,10 +58,13 @@
         .map-fab i { font-size: 1.8rem; }
         .map-fab span { font-size: 0.6rem; font-weight: 700; margin-top: -2px; }
 
-        .coupon-fab { position: fixed; bottom: calc(30px + var(--safe-area-bottom)); right: 100px; width: 60px; height: 60px; background: var(--accent); color: #FFF; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 8px 25px rgba(176, 125, 79, 0.4); z-index: 1500; text-decoration: none; }
+        .travel-fab { position: fixed; bottom: calc(30px + var(--safe-area-bottom)); right: 100px; width: 60px; height: 60px; background: var(--accent); color: #FFF; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 8px 25px rgba(176, 125, 79, 0.4); z-index: 1500; text-decoration: none; }
+        .travel-fab i { font-size: 1.8rem; }
+        .travel-fab span { font-size: 0.6rem; font-weight: 700; margin-top: -2px; }
+
+        .coupon-fab { position: fixed; bottom: calc(30px + var(--safe-area-bottom)); right: 175px; width: 60px; height: 60px; background: var(--accent); color: #FFF; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 8px 25px rgba(176, 125, 79, 0.4); z-index: 1500; text-decoration: none; }
         .coupon-fab i { font-size: 1.8rem; }
         .coupon-fab span { font-size: 0.6rem; font-weight: 700; margin-top: -2px; }
-
 
         .drawer-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(74, 63, 53, 0.4); z-index: 2000; visibility: hidden; opacity: 0; transition: 0.3s; backdrop-filter: blur(4px); }
         .drawer { position: fixed; bottom: -100%; left: 0; width: 100%; background: #FFF; border-radius: 32px 32px 0 0; padding: 35px 25px calc(30px + var(--safe-area-bottom)); z-index: 2001; transition: 0.4s; max-height: 85vh; overflow-y: auto; }
@@ -103,6 +106,10 @@
         <i class="ph-bold ph-train"></i><span>地鐵圖</span>
     </a>
     
+    <a href="https://japantravel.navitime.com/zh-tw/area/jp/route" target="_blank" class="travel-fab">
+        <i class="ph-bold ph-bus"></i><span>查路線</span>
+    </a>
+
     <a href="https://sites.google.com/view/azeri258?media_id=3852472488064317931_66909796642&media_author_id=66909796642&source_reply_media_id=3855447679975732311&ranking_info_token=GCBmNDRmYWRkMjI5ODI0ZDgyOTg0NjIwYjRlYjY4NjcyMiWIpZsCFZADFrCJ15sNGBMzODU1NDQ3Njc5OTc1NzMyMzExKANoaWwA&utm_source=ig_text_feed_timeline" target="_blank" class="coupon-fab">
         <i class="ph-bold ph-ticket"></i><span>優惠券</span>
     </a>
@@ -130,7 +137,7 @@
 
         const tripDatabase = {
             hotel_tokyo: { title: "品川王子飯店", type: "HOTEL", items: [{ label: "預定代號", val: "43778SF320681" }, { label: "特色", val: "鄰近品川樞紐，附設大型水族館。" }, { label: "附近景點", val: "京急 Store 超市、Atré Mall、Ecute Mall。" }], facilities: [{icon:"ph-wifi-high", text:"WiFi"}, {icon:"ph-fish", text:"水族館"}, {icon:"ph-coffee", text:"咖啡"}, {icon:"ph-shopping-cart", text:"超商"}, {icon:"ph-thermometer-hot", text:"空調"}, {icon:"ph-martini", text:"酒吧"}] },
-            hotel_matsumoto: { title: "松本 SUPER HOTEL", type: "HOTEL", items: [{ label: "預定代號", val: "5643752627" }, { label: "特色", val: "天然溫泉、健康早餐與自選枕頭。" }], facilities: [{icon:"ph-waves", text:"溫泉"}, {icon:"ph-bowl-food", text:"早餐"}, {icon:"ph-plus-square", text:"枕頭"}, {icon:"ph-wifi-high", text:"WiFi"}, {icon:"ph-gift", text:"女性禮"}, {icon:"ph-washing-machine", text:"洗衣"}] },
+            hotel_matsumoto: { title: "松本 SUPER HOTEL", type: "HOTEL", items: [{ label: "預定代號", val: "5643752627" }, { label: "特色", val: "天然溫泉、健康早餐與自選枕頭。" }, { label: "飲料吧開放時間", val: "18:00 - 21:00" }, { label: "溫泉開放時間", val: "[男湯] 15:00 - 18:00、22:00 - 06:50<br>[女湯] 19:00 - 21:50、07:00 - 09:50" }], facilities: [{icon:"ph-waves", text:"溫泉"}, {icon:"ph-bowl-food", text:"早餐"}, {icon:"ph-plus-square", text:"枕頭"}, {icon:"ph-wifi-high", text:"WiFi"}, {icon:"ph-gift", text:"女性禮"}, {icon:"ph-washing-machine", text:"洗衣"}] },
             hotel_makuhari: { title: "海濱幕張飯店", type: "HOTEL", items: [{ label: "預定代號", val: "1128145797437805" }, { label: "特色", val: "鄰近 Outlet，直達成田機場巴士站。" }], facilities: [{icon:"ph-bus", text:"接駁"}, {icon:"ph-shopping-bag", text:"商圈"}, {icon:"ph-wifi-high", text:"WiFi"}, {icon:"ph-bed", text:"寬敞"}, {icon:"ph-bathtub", text:"浴缸"}, {icon:"ph-clock-afternoon", text:"24H"}] },
             meiji: { title: "明治神宮 + 代代木公園", type: "SPOT", items: [{ label: "攻略", val: "城市森林，巨大的鳥居。" }], mustEat: "記得自備早餐", mustBuy: "竹下通商店街" },
             harajuku: { title: "原宿", type: "SPOT", items: [{ label: "攻略", val: "從竹下通走到竹下口右轉，沿著明治通大馬路走。" }], mustEat: "AFURI 拉麵、麵散烏龍麵", mustBuy: "3 COINS 旗艦店" },
@@ -138,33 +145,42 @@
             asakusa: { title: "淺草寺", type: "SPOT", items: [{ label: "攻略", val: "感受東京下町經典文化。" }], mustEat: "壽々喜園冰淇淋、鰻魚飯糰", mustBuy: "仲見世商店街、淺草絲滑布丁、龜十銅鑼燒、和泉屋米果" },
             jyujyu: { title: "敘敘苑 燒肉", type: "FOOD", items: [{ label: "地點", val: "晴空塔店 30F" }, { label: "訂位姓名", val: "Chen Ting Shan" }] },
             ueno: { title: "上野", type: "SPOT", items: [{ label: "攻略", val: "先去上野恩賜公園看櫻花，再沿著上野阿美橫商店街逛逛。" }], mustEat: "肉の大山、大章魚燒みなとや", mustBuy: "百果園、二木菓子、業務超市、多慶屋" },
-            no4: { title: "No.4 法式吐司", type: "FOOD", items: [{ label: "地點", val: "5-9 Yonbancho, Chiyoda City, Tokyo 102-0081日本" }, { label: "注意事項", val: "排隊人多需提早前往" }] },
+            // no4: { title: "No.4 法式吐司", type: "FOOD", items: [{ label: "地點", val: "5-9 Yonbancho, Chiyoda City, Tokyo 102-0081日本" }, { label: "注意事項", val: "排隊人多需提早前往" }] },
             kokyo: { title: "皇居", type: "SPOT", items: [{ label: "攻略", val: "09:00 至桔梗門排隊拿導覽號碼牌<br>10:00 開始導覽" }], mustEat: "天皇不賣吃的", mustBuy: "本丸休憩所、大手休憩所" },
             tonkatsusuzuki: { title: "壽壽木 炸豬排", type: "FOOD", items: [{ label: "地點", val: "GRANSTA八重北 八重北食堂1F" }, { label: "注意事項", val: "吃飯時間可能排隊" }] },
-            tokyo_station: { title: "東京車站購物", type: "SPOT", items: [{ label: "攻略", val: "甜點與伴手禮天堂。" }], mustEat: "治一郎年輪蛋糕 & 布丁、", mustBuy: "Pista & Tokyo、Sugar Butter Tree" },
+            tokyo_station: { title: "東京車站購物", type: "SPOT", items: [{ label: "攻略", val: "甜點與伴手禮天堂。" }], mustEat: "治一郎年輪蛋糕 & 布丁", mustBuy: "Pista & Tokyo、Sugar Butter Tree" },
             ginza: { title: "銀座購物", type: "SPOT", items: [{ label: "攻略", val: "買買買買買買。" }], mustEat: "noix de beurre 費南雪、五代目 花山烏冬", mustBuy: "香水香氛、伊東屋文具、二手精品、衣包鞋" },
-            castle: { title: "松本城", type: "SPOT", items: [{ label: "攻略", val: "國寶黑色天守。" }], mustEat: "信州蕎麥麵", mustBuy: "松本手鞠" },
+            eggslut: { title: "Eggslut", type: "FOOD", items: [{ label: "地點", val: "新宿 Southern Terrace 1F" }, { label: "必點推薦", val: "<ul><li>Route 20 sandwitch (半熟蛋、炒蛋、牛肉、起司、洋蔥、酸黃瓜)</li><li>Fairfax sandwitch (炒蛋、起司、焦糖洋蔥)</li><li>Egg salad sandwitch (蛋沙拉)</li><li>sides - slut (法式吐司沾特色沾醬)</li></ul>" }] },
+            masamura: { title: "Masamura", type: "FOOD", items: [{ label: "營業時間", val: "9:00 - 18:00" }, { label: "必點推薦", val: "泡芙" }, { label: "伴手禮", val: "天守石垣夾心餅乾" }]},
+            okinado: { title: "Okina-do", type: "FOOD", items: [{ label: "訂位資訊", val: "Google 訂位" }] },
+            matsumoto_breakfast: { title: "松本 SUPER HOTEL 早餐", type: "FOOD", items: [{ label: "開放時間", val: "6:30 - 8:30" }] },
+            koboyama_iriguchi:  {title: "弘法山古墳", type: "SPOT", items: [{ label: "攻略", val: "海拔高約 650 公尺的小山丘，山上有一座可追溯到 3 世紀晚期的古墳<br>春季時山丘上有 4,000 棵櫻花盛開，登山路上沿途種滿櫻花，十分壯觀" }, { label: "花況", val: "<a href='https://weathernews.jp/sakura/spot/4807/''>花況預測</a>" }], mustEat: "帶午餐上去吃", mustBuy: "古墳主人應該沒賣東西" },
+            castle: { title: "松本城", type: "SPOT", items: [{ label: "攻略", val: "<ul><li>日本最古老的五重六階木造天守，也是五大國寶天守中唯一建在平地上的城堡</li><li>背靠北阿爾卑斯山脈，有殘雪時很壯觀</li><li>外圍的護城河步道、石垣與本丸庭園可以拍到天守倒影非常漂亮</li><li>四月初本丸庭園夜間免費開放賞夜櫻</li></ul>" }, { label: "開放時間", val: "8:30 - 17:00（最後入場 16:30）" }, { label: "門票", val: "電子票：1,200 日圓/人<br>現場紙本票：1,300 日圓/人" }], mustEat: "信州蕎麥麵", mustBuy: "松本手鞠" },
+            komatsu_bakery: { title: "パンセ 小松", type: "FOOD", items: [{ label: "營業時間", val: "10:00 - 18:00" }, { label: "必點推薦", val: "牛奶麵包" }]},
+            nawate_dori: { title: "繩手通", type: "SPOT", items: [{ label: "攻略", val: "懷舊氛圍的青蛙街" }, { label: "營業時間", val: "10:00 - 18:00" }], mustEat: "臨機應變", mustBuy: "雷神堂米果" },
+            soba_dokoro: { title: "そば処 吉邦", type: "FOOD", items: [{ label: "營業時間", val: "11:00 - 14:00、17:00 - 19:00" }, { label: "必點推薦", val: "再確認" }] },
+            glacerie_TOIET: { title: "Glacerie TOIET", type: "FOOD", items: [{ label: "營業時間", val: "11:30 - 20:00" }, { label: "必點推薦", val: "再確認" }] },
             outlet: { title: "三井 Outlet", type: "SHOPPING", items: [{ label: "提示", val: "海濱幕張最後大採買。" }] },
             ci104_from: { title: "桃園機場", type: "TRANSIT", items: [{ label: "航班", val: "CI104 12:15" }] },
             ci104_to: { title: "成田機場", type: "TRANSIT", items: [{ label: "航班", val: "CI104 16:35" }, { label: "出關攻略", val: "開啟 Visit Japan Web 截圖" }] },            
             ci105_from: { title: "成田機場", type: "TRANSIT", items: [{ label: "航班", val: "CI105 17:55" }] },
             ci105_to: { title: "桃園機場", type: "TRANSIT", items: [{ label: "航班", val: "CI105 20:35" }] },
-            t_nrt: { title: "Access 特急詳解", type: "TRANSIT_INFO", items: [ { label: "進 / 出站", val: "成田空港 ➔ 品川。" }, { label: "班次", val: "搭乘成田 Access 特急 (橘色)，約 40 分鐘一班。" }, { label: "時間 / 票價", val: "最快 72 分鐘 / 1,630 日圓。" }, { label: "提醒", val: "先至京成電鐵售票處旁買 Suica，刷 IC 卡即可。" }, { label: "路線圖", val: "<a href='https://www.keisei.co.jp/keisei/tetudou/skyliner/tc/index.php' class='info-link'>即時班次查詢</a>。<br><a href='https://lazyjapan.com/regions/tokyo/transport/airport/narita/main/' class='info-link'>轉乘懶人包</a>。" }] },
+            t_nrt: { title: "Access 特急詳解", type: "TRANSIT_INFO", items: [ { label: "班次", val: "搭乘成田 Access 特急 (橘色)，約 40 分鐘一班。" }, { label: "時間 / 票價", val: "最快 72 分鐘 / 1,630 日圓。" }, { label: "提醒", val: "先至京成電鐵售票處旁買 Suica，刷 IC 卡即可。" }, { label: "路線圖", val: "<a href='https://www.keisei.co.jp/keisei/tetudou/skyliner/tc/index.php' class='info-link'>即時班次查詢</a>。<br><a href='https://lazyjapan.com/regions/tokyo/transport/airport/narita/main/' class='info-link'>轉乘懶人包</a>。" }] },
             t_jr: { title: "JR 詳解", type: "TRANSIT_INFO", items: [{ label: "班次", val: "隨時有車 (2-5 分鐘一班)。" }] },
             t_keikyu: { title: "京急本線詳解", type: "TRANSIT_INFO", items: [{ label: "班次", val: "隨時有車 (10 分鐘一班)。" }] },
             t_asakusa: { title: "淺草線詳解", type: "TRANSIT_INFO", items: [{ label: "班次", val: "尖峰約 3-5 分鐘，離峰約 5-8 分鐘。" }] },
             t_ginza: { title: "銀座線詳解", type: "TRANSIT_INFO", items: [{ label: "班次", val: "隨時有車 (2-5 分鐘一班)。" }] },
-            t_azusa: { title: "特急梓號詳解", type: "TRANSIT_INFO", items: [{ label: "班次", val: "約 1 小時一班，新宿 ➔ 松本。" }, { label: "提醒", val: "全車指定席，需先劃位。" }] },
+            t_azusa: { title: "特急梓號詳解", type: "TRANSIT_INFO", items: [{ label: "班次", val: "約 1 小時一班，新宿 ➔ 松本。" }, { label: "建議車次", val: "13:00" }, { label: "時間 / 票價", val: "約 157 分鐘 / 8,560 日圓。" }, { label: "提醒", val: "全車指定席，需先劃位，可以提前訂票 (也可網路訂購)。" }] },
             t_bus: { title: "機場巴士詳解", type: "TRANSIT_INFO", items: [{ label: "提示", val: "成田 T2 下車即是航站。" }] }
         };
 
         const tripSchedule = {
-            1: [ { id: 'ci104_from', time: '12:15', title: '桃園機場', icon: 'ph-airplane-takeoff' }, { id: 'ci104_to', time: '16:35', title: '成田機場', icon: 'ph-airplane-landing' }, { type: 'transit', line: '京成電鐵 Access 特急', infoId: 't_nrt' }, { id: 'hotel_tokyo', time: '20:30', title: '品川王子飯店', icon: 'ph-bed' } ],
+            1: [ { id: 'ci104_from', time: '12:15', title: '桃園機場', icon: 'ph-airplane-takeoff' }, { id: 'ci104_to', time: '16:35', title: '成田機場', icon: 'ph-airplane-landing' }, { type: 'transit', line: '京成電鐵 Access 特急 <br>(成田空港 ➔ 品川)', infoId: 't_nrt' }, { id: 'hotel_tokyo', time: '20:30', title: '品川王子飯店', icon: 'ph-bed' } ],
             2: [ { type: 'transit', line: 'JR 山手線 (品川 ➔ 代代木)', infoId: 't_jr' }, { id: 'meiji', time: '09:00', title: '明治神宮 + 代代木公園', icon: 'ph-park' }, { id: 'harajuku', time: '12:00', title: '原宿吃吃逛逛', icon: 'ph-bowl-food' }, { id: 'shibuya', time: '16:00', title: '涉谷吃吃逛逛', icon: 'ph-shopping-bag' }, { type: 'transit', line: 'JR 山手線 (澀谷 ➔ 品川)', infoId: 't_jr' }, { id: 'hotel_tokyo', title: '品川王子飯店', icon: 'ph-bed' } ],
             3: [ { type: 'transit', line: '京急本線 (品川 ➔ 淺草)', infoId: 't_keikyu' }, { id: 'asakusa', time: '09:00', title: '淺草寺參拜', icon: 'ph-mosque' }, { id: 'jyujyu', time: '13:00', title: '敘敘苑 燒肉', icon: 'ph-bowl-food' }, { type: 'transit', line: '淺草線 (押上 ➔ 淺草)', infoId: 't_asakusa' }, { type: 'transit', line: '銀座線 (淺草 ➔ 上野)', infoId: 't_ginza' }, { id: 'ueno', time: '15:00', title: '上野吃吃逛逛', icon: 'ph-shopping-bag' }, { type: 'transit', line: 'JR 山手線 (御徒町 ➔ 品川)', infoId: 't_jr' }, { id: 'hotel_tokyo', title: '品川王子飯店', icon: 'ph-bed' } ],
-            4: [ { type: 'transit', line: 'JR 東海道本線/橫須賀線/山手線 (品川 ➔ 東京車站)', infoId: 't_jr' }, { id: 'kokyo', time: '09:00', title: '皇居', icon: 'ph-house-line' }, { id: 'tonkatsusuzuki', time: '12:00', title: '壽壽木炸豬排', icon: 'ph-bowl-food' }, { id: 'tokyo_station', title: '東京車站購物', icon: 'ph-shopping-bag' }, { id: 'ginza', title: '銀座購物', icon: 'ph-shopping-bag' }, { type: 'transit', line: 'JR 東海道本線/橫須賀線/常磐線 (東京車站 ➔ 品川)', infoId: 't_jr' }, { id: 'hotel_tokyo', title: '品川王子飯店', icon: 'ph-bed' } ],
-            5: [ { type: 'transit', line: '特急梓號 (Azusa) ➔ 松本', infoId: 't_azusa' }, { id: 'hotel_matsumoto', title: '松本 SUPER HOTEL', icon: 'ph-bed' } ],
-            6: [ { id: 'castle', title: '松本城巡禮', icon: 'ph-castle-turret' }, { id: 'hotel_matsumoto', title: '松本 SUPER HOTEL', icon: 'ph-bed' } ],
+            4: [ { type: 'transit', line: 'JR 東海道本線/橫須賀線/山手線 <br>(品川 ➔ 東京車站)', infoId: 't_jr' }, { id: 'kokyo', time: '09:00', title: '皇居', icon: 'ph-house-line' }, { id: 'tonkatsusuzuki', time: '12:00', title: '壽壽木炸豬排', icon: 'ph-bowl-food' }, { id: 'tokyo_station', title: '東京車站購物', icon: 'ph-shopping-bag' }, { id: 'ginza', title: '銀座購物', icon: 'ph-shopping-bag' }, { type: 'transit', line: 'JR 東海道本線/橫須賀線/常磐線 <br>(東京車站 ➔ 品川)', infoId: 't_jr' }, { id: 'hotel_tokyo', title: '品川王子飯店', icon: 'ph-bed' } ],
+            5: [ { type: 'transit', line: 'JR 山手線 (品川 ➔ 新宿)', infoId: 't_jr' }, { id: 'eggslut', time: '11:00', title: 'Eggslut 漢堡', icon: 'ph-hamburger' }, { type: 'transit', line: '特急梓號 Azusa (新宿 ➔ 松本)', infoId: 't_azusa' }, { id: 'hotel_matsumoto', time: '16:00', title: '松本 SUPER HOTEL<br>Matsumoto Station Oshiroguchi check-in', icon: 'ph-bed' },  { id: 'masamura', time: '17:00', title: 'Masamura 甜點店', icon: 'ph-cookie' }, { id: 'okinado', time: '19:00', title: 'Okina-do 日式洋食', icon: 'ph-bowl-steam' }, { id: 'hotel_matsumoto', time: '21:00', title: '松本 SUPER HOTEL', icon: 'ph-bed' }],
+            6: [ { id: 'matsumoto_breakfast', time: '07:30', title: '飯店早餐', icon: 'ph-bread' }, { id: 'koboyama_iriguchi', time: '9:30', title: '弘法山古墳', icon: 'ph-park' }, { id: 'komatsu_bakery', time: '13:00', title: 'パンセ 小松 麵包店', icon: 'ph-bread' }, { id: 'castle', time: '14:00', title: '松本城', icon: 'ph-castle-turret' }, { id: 'nawate_dori', time: '16:00', title: '繩手通商店街', icon: 'ph-shopping-bag' }, { id: 'soba_dokoro', time: '17:00', title: 'そば処 吉邦 蕎麥麵', icon: 'ph-bowl-steam' }, { id: 'glacerie_TOIET', time: '18:30', title: 'Glacerie TOIET 冰淇淋', icon: 'ph-ice-cream' }, { id: 'hotel_matsumoto', title: '松本 SUPER HOTEL', icon: 'ph-bed' } ],
             7: [ { type: 'transit', line: '返回東京 / 幕張', infoId: 't_azusa' }, { id: 'outlet', title: '三井 Outlet 幕張', icon: 'ph-shopping-bag' }, { id: 'hotel_makuhari', title: '海濱幕張飯店', icon: 'ph-bed' } ],
             8: [ { type: 'transit', line: '機場高速巴士', infoId: 't_bus' }, { id: 'ci105_from', time: '17:55', title: '成田機場', icon: 'ph-airplane-takeoff' }, { id: 'ci105_to', time: '20:35', title: '桃園機場', icon: 'ph-airplane-landing' }  ]
         };
