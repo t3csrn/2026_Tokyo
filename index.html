@@ -125,14 +125,14 @@
 
     <script>
         const weatherData = {
-            1: { temp: "15°-24°C", rain: "40%", aqi: "32", icon: "ph-cloud" },
-            2: { temp: "13°-22°C", rain: "30%", aqi: "45", icon: "ph-cloud-sun" },
-            3: { temp: "13°-21°C", rain: "40%", aqi: "28", icon: "ph-cloud-sun" },
-            4: { temp: "13°-20°C", rain: "40%", aqi: "56", icon: "ph-cloud-rain" },
-            5: { temp: "8°-16°C", rain: "5%", aqi: "15", icon: "ph-sun" },
-            6: { temp: "7°-15°C", rain: "0%", aqi: "12", icon: "ph-sun" },
-            7: { temp: "16°-23°C", rain: "10%", aqi: "42", icon: "ph-sun" },
-            8: { temp: "14°-20°C", rain: "15%", aqi: "38", icon: "ph-sun" }
+            1: { temp: "15°-27°C", rain: "10%", aqi: "32", icon: "ph-cloud-sun" },
+            2: { temp: "12°-24°C", rain: "20%", aqi: "45", icon: "ph-cloud-sun" },
+            3: { temp: "13°-23°C", rain: "30%", aqi: "28", icon: "ph-cloud-sun" },
+            4: { temp: "13°-21°C", rain: "40%", aqi: "56", icon: "ph-cloud" },
+            5: { temp: "5°-20°C", rain: "40%", aqi: "15", icon: "ph-cloud" },
+            6: { temp: "5°-16°C", rain: "23%", aqi: "12", icon: "ph-cloud-sun" },
+            7: { temp: "14°-19°C", rain: "24%", aqi: "42", icon: "ph-cloud-sun" },
+            8: { temp: "13°-22°C", rain: "60%", aqi: "38", icon: "ph-cloud" }
         };
 
         const tripDatabase = {
@@ -210,7 +210,7 @@
             document.getElementById('heroTitle').innerText = info.title;
             document.getElementById('heroDate').innerText = info.date;
             const w = weatherData[num];
-            document.getElementById('weatherBarArea').innerHTML = `<div class="weather-tag"><i class="ph-duotone ${w.icon}"></i> ${w.temp}</div><div class="weather-tag"><i class="ph-duotone ph-drop"></i> ${w.rain}</div><div class="weather-tag"><i class="ph-duotone ph-wind"></i> AQI ${w.aqi}</div>`;
+            document.getElementById('weatherBarArea').innerHTML = `<div class="weather-tag"><i class="ph-duotone ${w.icon}"></i> ${w.temp}</div><div class="weather-tag"><i class="ph-duotone ph-drop"></i> ${w.rain}</div></div>`;
             const schedule = tripSchedule[num] || [];
             document.getElementById('dayContentArea').innerHTML = schedule.map(item => {
                 if(item.type === 'transit') return `<div class="transit-line"><span><i class="ph-duotone ph-train"></i> ${item.line}</span> <button class="transit-info-btn" onclick="openDrawer('${item.infoId}')"><i class="ph-bold ph-info"></i></button></div>`;
